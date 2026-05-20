@@ -81,8 +81,12 @@ WSGI_APPLICATION = "capapool.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "capapool_db",
+        "USER": "at0m",
+        "PASSWORD": "capa00l_talent",
+        "HOST": "localhost",
+        "PORT": "5432"
     }
 }
 
