@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Job Listings</title>
+</head>
+
+<body>
+	<h1>Available Job Postings</h1>
+
+	<form method='get' action="{% url 'job_search' %}">
+		<input type='text' name='q' placeholder="Search job descriptions">
+		<button type='submit'>Search</button>
+	</form>
+
+	<hr>
+
+	{% for job in jobs %}
+		<div>
+			<h2>{{ job.job_title }}</h2>
+
+			<p>
+				<strong>Company:</strong>
+				{{ job.employer.company_name }}
+			</p>
+
+			<p>
+				<strong>Description:</strong>
+				{{ job.job_description }}
+			</p>
+
+			<p>
+				<strong>Required Education:</strong>
+				{{ job.get_required_education_level_display }}
+			</p>
+
+			<p>
+				<strong>Experience Required:</strong>
+				{{ job.required_years_of_experience }} years
+			</p>
+
+			<p>
+				<strong>Work Mode:</strong>
+				{{ job.get_work_mode_display }}
+			</p>
+
+			<p>
+				<strong>Location:</strong>
+				{{ job.job_location }}
+			</p>
+		</div>
+
+		<hr>
+	{% empty %}
+		<p>No job postings available.</p>
+	{% endfor %}
+</body>
+</html>

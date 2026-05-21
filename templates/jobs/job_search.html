@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Search Jobs</title>
+</head>
+
+<body>
+	<h1>Search Jobs</h1>
+
+	<form method='get'>
+		<input type='text' name='q' value='{{ query }}' placeholder="Search job description">
+		<button type='submit'>Search</button>
+	</form>
+
+	{% if query %}
+		<p>
+			Showing results for:
+			<strong>{{ query }}</strong>
+		</p>
+	{% endif %}
+
+	<hr>
+
+	{% for job in jobs %}
+		<div>
+			<h2>{{ job.job_title }}</h2>
+
+			<p>
+				<strong>Company:</strong>
+				{{ job.employer.company_name }}
+			</p>
+
+			<p>
+				<strong>Description:</strong>
+				{{ job.job_description }}
+			</p>
+
+			<p>
+				<strong>Location:</strong>
+				{{ job.job_location }}
+			</p>
+
+			<p>
+				<strong>Work Mode:</strong>
+				{{ job.get_work_mode_display }}
+			</p>
+		</div>
+
+		<hr>
+	{% empty %}
+		<p>No matching jobs found.</p>
+	{% endfor %}
+
+	<p>
+		<a href="{% url 'job_list' %}">Back to all jobs</a>
+	</p>
+</body>
+
+</html>
