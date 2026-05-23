@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import JobPosting
+from .forms import JobPostingForm
 
 # Create your views here.
 
@@ -24,4 +25,19 @@ def job_search(request):
 	return render(request, 'jobs/job_search.html', {
 		'jobs': jobs,
 		'query': query
+	})
+
+
+def create_job(request):
+	if request.method == 'POST':
+		form = JobPostingForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+			return redirect('job_list')
+	else:
+		form = JobPostingForm()
+
+	return render(request, 'jobs/create_job.html', {
+		'form': form
 	})

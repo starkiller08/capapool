@@ -8,6 +8,10 @@
 <body>
 	<h1>Available Job Postings</h1>
 
+	<p>
+		<a href="{% url 'create_job' %}">Create a new job posting</a>
+	</p>
+
 	<form method='get' action="{% url 'job_search' %}">
 		<input type='text' name='q' placeholder="Search job descriptions">
 		<button type='submit'>Search</button>
@@ -50,8 +54,8 @@
 			</p>
 
 			<p>
-				{% url 'recommended_candidates' job.id %}
-					View recommended candidates for this job
+				<a href="{% url 'recommended_candidates' job.id %}">
+					View recommended candidates
 				</a>
 			</p>
 		</div>
