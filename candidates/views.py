@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import CandidateProfile
+from .forms import CandidateProfileForm
 
 # Create your views here.
 
@@ -40,4 +41,40 @@ def candidate_search(request):
 		'skill': skill,
 		'education': education,
 		'experience': experience
+	})
+
+
+def create_candidate_profile(request):
+	if request.method == 'POST':
+		form = CandidateProfileForm(request.POST, request.FILES)
+
+		if form.is_valid():
+			form.save()
+			return redirect('candidate_list')
+	else:
+		form = CandidateProfileForm()
+
+	return render(request, 'candidates/candidate_form.html', {
+		'form': form,
+		'page_title': 'Create Candidate Profile',
+		'button_text': 'Create Profile'
+	})
+
+
+def edit_candidate_profile(request, candidate_id):
+	candidate = get_object_or_404(CandidateProfile, id=candidate_id)
+
+	if request.method == 'POST':
+		form = CandidateProfileForm(request.POST, request.FILES, instance=candidate)
+
+		if form.is_valid():
+			form.save()
+			return redirect('candidate_list')
+	else:
+		form = CandidateProfileForm(instance=candidate)
+
+	return render(request, 'candidates/candidate_form.html', {
+		'form': form,
+		'page_title': 'Edit Candidate Profile',
+		'button_text': 'Save Changes'
 	})

@@ -15,6 +15,10 @@
 		</a>
 	</p>
 
+	<p>
+		<a href="{% url 'create_candidate_profile' %}">Create a new candidate profile</a>
+	</p>
+
 	<form method="get" action="{% url 'candidate_search' %}">
 		<input type="text" name="skill" placeholder="Skill, e.g. Python">
 
@@ -65,6 +69,10 @@
 				{% empty %}
 					No skills listed.
 				{% endfor %}
+			</p>
+
+			<p>
+				<a href="{% url 'edit_candidate_profile' candidate.id %}">Edit this candidate profile</a>
 			</p>
 		</div>
 
