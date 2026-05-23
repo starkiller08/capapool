@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Edit Job Posting</title>
+</head>
+
+<body>
+	<h1>Edit Job Posting</h1>
+
+	<p>
+		Editing job:
+		<strong>{{ job.job_title }}</strong>
+	</p>
+
+	<form method='post'>
+		{% csrf_token %}
+
+		{{ form.as_p }}
+
+		<button type='submit'>Save Changes</button>
+	</form>
+
+	<p>
+		<a href="{% url 'job_list' %}">Back to job list</a>
+	</p>
+</body>
+
+</html>

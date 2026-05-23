@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import JobPosting
 from .forms import JobPostingForm
 
@@ -40,4 +40,22 @@ def create_job(request):
 
 	return render(request, 'jobs/create_job.html', {
 		'form': form
+	})
+
+
+def edit_job(request, job_id):
+	job = get_object_or_404(JobPosting, id=job_id)
+
+	if request.method == 'POST':
+		form = JobPostingForm(request.POST, instance=job)
+
+		if form.is_valid():
+			form.save()
+			return redirect('job_list')
+	else:
+		form = JobPostingForm(instance=job)
+
+	return render(request, 'jobs/edit_job.html', {
+		'form': form,
+		'job': job
 	})
