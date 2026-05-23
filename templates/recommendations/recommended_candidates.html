@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Recommended Candidates</title>
+</head>
+
+<body>
+	<h1>Top 10 Recommended Candidates</h1>
+
+	<p>
+		Showing recommendations for job:
+		<strong>{{ job.job_title }}</strong>
+	</p>
+
+	<hr>
+
+	{% for item in results %}
+		<div>
+			<h2>{{ item.candidate.full_name }}</h2>
+
+			<p>
+				<strong>Match Score:</strong>
+				{{ item.score }}
+			</p>
+
+			<p>
+				<strong>Email:</strong>
+				{{ item.candidate.contact_email }}
+			</p>
+
+			<p>
+				<strong>Education:</strong>
+				{{ item.candidate.get_education_level_display }}
+			</p>
+
+			<p>
+				<strong>Major:</strong>
+				{{ item.candidate.major }}
+			</p>
+
+			<p>
+				<strong>Experience:</strong>
+				{{ item.candidate.years_of_experience }} years
+			</p>
+
+			<p>
+				<strong>Preferred Location:</strong>
+				{{ item.candidate.preferred_location }}
+			</p>
+
+			<p>
+				<strong>Preferred Work Mode:</strong>
+				{{ item.candidate.preferred_work_mode }}
+			</p>
+
+			<p>
+				<strong>Skills:</strong>
+				{% for skill in item.candidate.skills.all %}
+					{{ skill.name }}{% if not forloop.last %}, {% endif %}
+				{% empty %}
+					No skills listed.
+				{% endfor %}
+			</p>
+		</div>
+
+		<hr>
+	{% empty %}
+		<p>No recommended candidates found.</p>
+	{% endfor %}
+
+	<p>
+		{% url 'candidate_list' %}Back to all candidates</a>
+	</p>
+
+</body>
+
+<html>

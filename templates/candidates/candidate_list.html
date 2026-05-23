@@ -8,6 +8,13 @@
 <body>
 	<h1>Candidate Profiles</h1>
 
+	# for testing purposes
+	<p>
+		{% url 'recommended_jobs' %}
+			View recommended jobs for first candidate
+		</a>
+	</p>
+
 	<form method="get" action="{% url 'candidate_search' %}">
 		<input type="text" name="skill" placeholder="Skill, e.g. Python">
 
