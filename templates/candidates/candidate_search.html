@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Search Candidates</title>
+</head>
+
+<body>
+	<h1>Search / Filter Candidates</h1>
+
+	<form method="get">
+		<input type="text" name="skill" value="{{ skill }}" placeholder="Skill, e.g. Python">
+
+		<select name="education">
+			<option value="">Any education</option>
+			<option value="high_school" {% if education == "high_school" %} selected{% endif %}>High School</option>
+			<option value="diploma" {% if education == "diploma" %}selected{% endif %}>Diploma</option>
+			<option value="bachelor" {% if education == "bachelor" %}selected{% endif %}>Bachelor</option>
+			<option value="master" {% if education == "master" %}selected{% endif %}>Master</option>
+			<option value="phd" {% if education == "phd" %}selected{% endif %}>PhD</option>
+		</select>
+
+		<input type="number" name="experience" value="{{ experience }}" placeholder="Minimum experience">
+
+		<button type="submit">Search / Filter</button>
+	</form>
+
+	<p>
+		Filters:
+		Skill = "{{ skill }}",
+		Education = "{{ education }}",
+		Experience = "{{ experience }}"
+	</p>
+
+	<hr>
+
+	{% for candidate in candidates %}
+		<div>
+			<h2>{{ candidate.full_name }}</h2>
+
+			<p>
+				<strong>Email:</strong>
+				{{ candidate.contact_email }}
+			</p>
+
+			<p>
+				<strong>Education:</strong>
+				{{ candidate.get_education_level_display }}
+			</p>
+
+			<p>
+				<strong>Major:</strong>
+				{{ candidate.major }}
+			</p>
+
+			<p>
+				<strong>Experience:</strong>
+				{{ candidate.years_of_experience }} years
+			</p>
+
+			<p>
+				<strong>Skills:</strong>
+				{% for skill in candidate.skills.all %}
+					{{ skill.name }}{% if not forloop.last %}, {% endif %}
+
+				{% empty %}
+					No skills listed.
+				{% endfor %}
+			</p>
+		</div>
+
+		<hr>
+	{% empty %}
+		<p>No matching candidate found.</p>
+	{% endfor %}
+
+	<p>
+		<a href="{% url 'candidate_list' %}">Back to all candidates</a>
+	</p>
+</body>
+
+</html>

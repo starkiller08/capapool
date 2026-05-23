@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Candidate Profiles</title>
+</head>
+
+<body>
+	<h1>Candidate Profiles</h1>
+
+	<form method="get" action="{% url 'candidate_search' %}">
+		<input type="text" name="skill" placeholder="Skill, e.g. Python">
+
+		<select name="education">
+			<option value="">Any education</option>
+			<option value="high_school">High School</option>
+			<option value="diploma">Diploma</option>
+			<option value="bachelor">Bachelor</option>
+			<option value="master">Master</option>
+			<option value="phd">PhD</option>
+		</select>
+
+		<input type="number" name="experience" placeholder="Minimum experience">
+
+		<button type="submit">Search / Filter</button>
+	</form>
+
+	<hr>
+
+	{% for candidate in candidates %}
+		<div>
+			<h2>{{ candidate.full_name }}</h2>
+
+			<p>
+				<strong>Email:</strong>
+				{{ candidate.contact_email }}
+			</p>
+
+			<p>
+				<strong>Education:</strong>
+				{{ candidate.get_education_level_display }}
+			</p>
+
+			<p>
+				<strong>Major:</strong>
+				{{ candidate.major }}
+			</p>
+
+			<p>
+				<strong>Experience:</strong>
+				{{ candidate.years_of_experience }} years
+			</p>
+
+			<p>
+				<strong>Skills:</strong>
+				{% for skill in candidate.skills.all %}
+					{{ skill.name }}{% if not forloop.last %}, {% endif %}
+				{% empty %}
+					No skills listed.
+				{% endfor %}
+			</p>
+		</div>
+
+		<hr>
+	{% empty %}
+		<p>No candidate profiles found.</p>
+	{% endfor %}
+</body>
+</html>
