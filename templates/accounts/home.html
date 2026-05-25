@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Intelligent Talent Matching Platform</title>
+</head>
+
+<body>
+	<h1>Intelligent Talent Matching Platform</h1>
+
+	<p>
+		Welcome to the recruitment platform for candidates and employers.
+	</p>
+
+	{% if user.is_authenticated %}
+		<p>
+			You are logged in as <strong>{{ user.username }}</strong>.
+		</p>
+
+		<p>
+			<a href="{% url 'dashboard' %}">Go to dashboard</a>
+		</p>
+
+		<form method='post' action="{% url 'logout' %}">
+			{% csrf_token %}
+			<button type='submit'>Logout</button>
+		</form>
+	{% else %}
+		<p>
+			<a href="{% url 'register_candidate' %}">Register as Candidate</a>
+		</p>
+
+		<p>
+			<a href="{% url 'register_employer' %}">Register as Employer</a>
+		</p>
+
+		<p>
+			<a href="{% url 'login' %}">Login</a>
+		</p>
+	{% endif %}
+
+	<hr>
+
+	<p>
+		<a href="{% url 'job_list' %}">View jobs</a>
+	</p>
+
+	<p>
+		<a href="{% url 'candidate_list' %}">View candidates</a>
+	</p>
+
+</body>
+</html>

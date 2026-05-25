@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>Dashboard</title>
+</head>
+
+<body>
+	<h1>Dashboard</h1>
+
+	<p>
+		Logged in as:
+		<strong>{{ user.username }}</strong>
+	</p>
+
+	<hr>
+<!--
+	{% if user.candidate_profile %}
+		<h2>Candidate Options</h2>
+
+		<p>
+			<a href="{% url 'recommended_jobs' %}">View my recommended jobs</a>
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">Browse jobs</a>
+		</p>
+
+		<p>
+			<a href="{% url 'candidate_list' %}">View candidate profiles</a>
+		</p>
+	{% elif user.employer_profile %}
+		<h2>Employer Options</h2>
+
+		<p>
+			<a href="{% url 'create_job' %}">Create a job posting</a>
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">View job postings</a>
+		</p>
+
+		<p>
+			<a href="{% url 'candidate_search' %}">Search candidates</a>
+		</p>
+	{% else %}
+		<h2>Admin User Options</h2>
+
+		<p>
+			This user does not have a candidate or employer profile.
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">View jobs</a>        
+		</p>        
+
+		<p>
+			<a href="{% url 'candidate_list' %}">View candidates</a>        
+		</p>        
+
+		<p>
+			<a href="/admin/">Go to Django admin</a>        
+		</p>
+	{% endif %}
+
+	<hr>
+
+	<p>
+		<a href="{% url 'home' %}">Back to home</a>
+	</p>
+-->
+
+	{% if candidate_profile %}
+		<h2>Candidate Options</h2>
+
+		<p>
+			Candidate profile:
+			<strong>{{ candidate_profile.full_name }}</strong>
+		</p>
+
+		<p>
+			<a href="{% url 'recommended_jobs' %}">View my recommended jobs</a>
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">Browse jobs</a>
+		</p>
+
+	{% elif employer_profile %}
+		<h2>Employer Options</h2>
+
+		<p>
+			Company:
+			<strong>{{ employer_profile.company_name }}</strong>
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">View job postings</a>
+		</p>
+
+		<p>
+			<a href="{% url 'candidate_list' %}">View candidate profiles</a>
+		</p>
+
+		<p>
+			<a href="{% url 'candidate_search' %}">Search candidates</a>
+		</p>
+
+	{% elif user.is_staff %}
+		<h2>Admin Options</h2>
+
+		<p>
+			This is admin/staff account.
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">View jobs</a>
+		</p>
+
+		<p>
+			<a href="{% url 'candidate_list' %}">View candidates</a>
+		</p>
+
+		<p>
+			<a href="/admin/">Go to Django admin</a>
+		</p>
+
+	{% else %}
+		<h2>General User Options</h2>
+
+		<p>
+			This account does not have a candidate or employer profile yet.
+		</p>
+
+		<p>
+			<a href="{% url 'job_list' %}">View jobs</a>
+		</p>
+	{% endif %}
+
+	<hr>
+
+	<form method="post" action="{% url 'logout' %}">
+		{% csrf_token %}
+		<button type="submit">Logout</button> 
+	</form>
+
+</body>
+
+</html>
