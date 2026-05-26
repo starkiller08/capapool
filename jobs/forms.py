@@ -7,7 +7,6 @@ class JobPostingForm(forms.ModelForm):
 		model = JobPosting
 
 		fields = [
-			'employer',
 			'job_title',
 			'job_description',
 			'required_education_level',
@@ -23,6 +22,6 @@ class JobPostingForm(forms.ModelForm):
 			'job_description': forms.Textarea(attrs={
 				'rows': 5,
 				'placeholder': 'Enter the job description here...'
-				}),
+			}),
 			'required_skills': forms.CheckboxSelectMultiple(),
 		}

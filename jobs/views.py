@@ -1,4 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+
+from employers.models import EmployerProfile
 from .models import JobPosting
 from .forms import JobPostingForm
 
@@ -28,12 +31,20 @@ def job_search(request):
 	})
 
 
+@login_required
 def create_job(request):
+	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
+	if employer_profile is None:
+		return redirect('dashboard')
+
 	if request.method == 'POST':
 		form = JobPostingForm(request.POST)
 
 		if form.is_valid():
-			form.save()
+			job = form.save(commit=False)
+			job.employer = employer_profile
+			job.save()
+			form.save_m2m()
 			return redirect('job_list')
 	else:
 		form = JobPostingForm()
@@ -43,8 +54,14 @@ def create_job(request):
 	})
 
 
+@login_required
 def edit_job(request, job_id):
-	job = get_object_or_404(JobPosting, id=job_id)
+	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
+
+	if employer_profile is None:
+		return redirect('dashboard')
+
+	job = get_object_or_404(JobPosting, id=job_id, employer=employer_profile)
 
 	if request.method == 'POST':
 		form = JobPostingForm(request.POST, instance=job)
