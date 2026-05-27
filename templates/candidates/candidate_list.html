@@ -71,9 +71,11 @@
 				{% endfor %}
 			</p>
 
-			<p>
-				<a href="{% url 'edit_candidate_profile' candidate.id %}">Edit this candidate profile</a>
-			</p>
+			{% if user.is_staff %}
+				<p>
+					<a href="{% url 'edit_candidate_profile' candidate.id %}">Edit this candidate profile</a>
+				</p>
+			{% endif %}
 		</div>
 
 		<hr>

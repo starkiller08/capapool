@@ -7,7 +7,6 @@ class CandidateProfileForm(forms.ModelForm):
 		model = CandidateProfile
 
 		fields = [
-			'user',
 			'full_name',
 			'contact_email',
 			'phone_number',

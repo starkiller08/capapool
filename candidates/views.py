@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CandidateProfile
 from .forms import CandidateProfileForm
@@ -44,13 +45,34 @@ def candidate_search(request):
 	})
 
 
+@login_required
+def my_candidate_profile(request):
+	candidate_profile = CandidateProfile.objects.filter(user=request.user).first()
+
+	if candidate_profile is None:
+		return redirect('create_candidate_profile')
+
+	return render(request, 'candidates/my_candidate_profile.html', {
+		'candidate': candidate_profile
+	})
+
+
+@login_required
 def create_candidate_profile(request):
+	existing_profile = CandidateProfile.objects.filter(user=request.user).first()
+
+	if existing_profile is not None:
+		return redirect('my_candidate_profile')
+
 	if request.method == 'POST':
 		form = CandidateProfileForm(request.POST, request.FILES)
 
 		if form.is_valid():
-			form.save()
-			return redirect('candidate_list')
+			candidate = form.save(commit=False)
+			candidate.user = request.user
+			candidate.save()
+			form.save_m2m()
+			return redirect('my_candidate_profile')
 	else:
 		form = CandidateProfileForm()
 
@@ -61,20 +83,58 @@ def create_candidate_profile(request):
 	})
 
 
+
+@login_required
 def edit_candidate_profile(request, candidate_id):
-	candidate = get_object_or_404(CandidateProfile, id=candidate_id)
+    if request.user.is_staff:
+        candidate_profile = get_object_or_404(CandidateProfile, id=candidate_id)
+    else:
+        candidate_profile = get_object_or_404(
+            CandidateProfile,
+            id=candidate_id,
+            user=request.user
+        )
+
+    if request.method == 'POST':
+        form = CandidateProfileForm(
+            request.POST,
+            request.FILES,
+            instance=candidate_profile
+        )
+
+        if form.is_valid():
+            form.save()
+            return redirect('candidate_list')
+    else:
+        form = CandidateProfileForm(instance=candidate_profile)
+
+    return render(request, 'candidates/candidate_form.html', {
+        'form': form,
+        'page_title': 'Edit Candidate Profile',
+        'button_text': 'Save Changes'
+    })
+
+
+@login_required
+def edit_my_candidate_profile(request):
+	candidate_profile = CandidateProfile.objects.filter(user=request.user).first()
+	
+	#candidate = get_object_or_404(CandidateProfile, id=candidate_id)
+	if candidate_profile is None:
+		return redirect('create_candidate_profile')
+
 
 	if request.method == 'POST':
-		form = CandidateProfileForm(request.POST, request.FILES, instance=candidate)
+		form = CandidateProfileForm(request.POST, request.FILES, instance=candidate_profile)
 
 		if form.is_valid():
 			form.save()
-			return redirect('candidate_list')
+			return redirect('my_candidate_profile')
 	else:
-		form = CandidateProfileForm(instance=candidate)
+		form = CandidateProfileForm(instance=candidate_profile)
 
 	return render(request, 'candidates/candidate_form.html', {
 		'form': form,
-		'page_title': 'Edit Candidate Profile',
+		'page_title': 'Edit My Candidate Profile',
 		'button_text': 'Save Changes'
 	})

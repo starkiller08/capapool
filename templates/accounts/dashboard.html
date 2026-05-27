@@ -80,11 +80,23 @@
 		</p>
 
 		<p>
+			<a href="{% url 'my_candidate_profile' %}">View my profile</a>
+		</p>
+
+		<p>
+			<a href="{% url 'edit_my_candidate_profile' %}">Edit my profile</a>
+		</p>
+
+		<p>
 			<a href="{% url 'recommended_jobs' %}">View my recommended jobs</a>
 		</p>
 
 		<p>
 			<a href="{% url 'job_list' %}">Browse jobs</a>
+		</p>
+
+		<p>
+			<a href="{% url 'job_search' %}">Search jobs</a>
 		</p>
 
 	{% elif employer_profile %}
