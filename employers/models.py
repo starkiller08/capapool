@@ -10,6 +10,8 @@ class EmployerProfile(models.Model):
 	contact_email = models.EmailField()
 	phone_number = models.CharField(max_length=30, blank=True)
 
+	is_member = models.BooleanField(default=False)
+
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):

@@ -39,6 +39,20 @@
 	</p>
 
 	<p>
+		<strong>Work Experience:</strong>
+		{{ candidate.work_experience }}
+	</p>
+
+	<p>
+		<strong>Membership:</strong>
+		{% if candidate.is_member %}
+			Member
+		{% else %}
+			Non-member
+		{% endif %}
+	</p>
+
+	<p>
 		<strong>Preferred Location:</strong>
 		{{ candidate.preferred_location }}
 	</p>

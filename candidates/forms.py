@@ -13,6 +13,8 @@ class CandidateProfileForm(forms.ModelForm):
 			'education_level',
 			'major',
 			'years_of_experience',
+			'work_experience',
+			'skills',
 			'resume',
 			'preferred_location',
 			'preferred_work_mode',
@@ -20,5 +22,9 @@ class CandidateProfileForm(forms.ModelForm):
 
 
 		widgets = {
+			'work_experience': forms.Textarea(attrs={
+				'rows': 4,
+				'placeholder': 'Briefly describe your past work experience....'
+			}),
 			'skills': forms.CheckboxSelectMultiple(),
 		}
