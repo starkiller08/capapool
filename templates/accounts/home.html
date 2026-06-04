@@ -10,6 +10,16 @@
 <body>
 	<h1>Intelligent Talent Matching Platform</h1>
 
+	{% if messages %}
+		<div>
+			{% for message in messages %}
+				<p>
+					{{ messages }}
+				</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+
 	<p>
 		Welcome to the recruitment platform for candidates and employers.
 	</p>

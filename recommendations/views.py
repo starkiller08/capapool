@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -15,6 +16,7 @@ def recommended_jobs(request):
 
 
 	if candidate_profile is None:
+		messages.error(request, 'Only candidates can view recommended jobs.')
 		return redirect('dashboard')
 
 	results = get_top_10_jobs_for_candidate(candidate_profile)
@@ -30,6 +32,7 @@ def recommended_candidates(request, job_id):
 	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
 
 	if employer_profile is None:
+		messages.error(request, 'Only employers can view recommended candidates.')
 		return redirect('dashboard')
 
 	# this function finds jobs by its ID, if it does not exist then a 404 page will be shown.

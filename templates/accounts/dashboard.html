@@ -9,6 +9,16 @@
 <body>
 	<h1>Dashboard</h1>
 
+	{% if messages %}
+		<div>
+			{% for message in messages %}
+				<p>
+					{{ messages }}
+				</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+
 	<p>
 		Logged in as:
 		<strong>{{ user.username }}</strong>
@@ -112,7 +122,10 @@
 		</p>
 
 		<p>
-			<a href="{% url 'job_list' %}">View job postings</a>
+			<a href="{% url 'my_jobs' %}">View my job postings</a>
+		</p>
+		<p>
+			<a href="{% url 'job_list' %}">View all job postings</a>
 		</p>
 
 		<p>

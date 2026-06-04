@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Job Postings</title>
+</head>
+
+<body>
+	<h1>My Job Postings</h1>
+
+	<p>
+		Employer:
+		<strong>{{ employer_profile.company_name }}</strong>
+	</p>
+
+	<p>
+		<a href="{% url 'create_job' %}"></a>
+	</p>
+
+	<hr>
+
+	{% for job in jobs %}
+		<div>
+			<h2>{{ job.job_title }}</h2>
+
+			<p>
+				<strong>Description:</strong>
+				{{ job.job_description }}
+			</p>
+
+			<p>
+				<strong>Required Education:</strong>
+				{{ job.get_required_education_level_display }}
+			</p>
+
+			<p>
+				<strong>Experience Required:</strong>
+				{{ job.required_years_of_experience }} years
+			</p>
+
+			<p>
+				<strong>Work Mode:</strong>
+				{{ job.get_work_mode_display }}
+			</p>
+
+			<p>
+				<strong>Location:</strong>
+				{{ job.job_location }}
+			</p>
+
+			<p>
+				<strong>Status:</strong>
+				{% if job.is_active %}
+					Active
+				{% else %}
+					Inactive
+				{% endif %}
+			</p>
+
+			<p>
+				<strong>Required Skills:</strong>
+				{% for skill in job.required_skills.all %}
+					{{ skill.name }}{% if not forloop.last %}, {% endif %}
+				{% empty %}
+					No skills listed.
+				{% endfor %}
+			</p>
+
+			<p>
+				<a href="{% url 'edit_job' job.id %}">Edit this job posting</a>
+			</p>
+
+			<p>
+				<a href="{% url 'recommended_candidates' job.id %}">View recommended candidates for this job</a>
+			</p>
+		</div>
+
+		<hr>
+
+	{% empty %}
+		<p>You have not created any job postings yet.</p>
+	{% endfor %}
+
+	<p>
+		<a href="{% url 'dashboard' %}">Back to dashboard</a>
+	</p>
+</body>
+
+</html>

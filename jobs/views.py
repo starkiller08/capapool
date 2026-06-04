@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -34,7 +35,9 @@ def job_search(request):
 @login_required
 def create_job(request):
 	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
+	
 	if employer_profile is None:
+		messages.error(request, 'Only employers can create job postings.')
 		return redirect('dashboard')
 
 	if request.method == 'POST':
@@ -46,6 +49,9 @@ def create_job(request):
 			job.save()
 			form.save_m2m()
 			return redirect('job_list')
+
+			messages.success(request, 'Job posting created successfully.')
+			return redirect('my_jobs')
 	else:
 		form = JobPostingForm()
 
@@ -55,10 +61,26 @@ def create_job(request):
 
 
 @login_required
+def my_jobs(request):
+	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
+
+	if employer_profile is None:
+		messages.error(request, 'Only employers can view their own job postings.')
+		return redirect('dashboard')
+
+	jobs = JobPosting.objects.filter(employer=employer_profile).order_by('-created_at')
+
+	return render(request, 'jobs/my_jobs.html', {
+		'jobs': jobs,
+		'employer_profile': employer_profile
+	})
+
+@login_required
 def edit_job(request, job_id):
 	employer_profile = EmployerProfile.objects.filter(user=request.user).first()
 
 	if employer_profile is None:
+		messages.error(request, 'Only employers can edit job postings.')
 		return redirect('dashboard')
 
 	job = get_object_or_404(JobPosting, id=job_id, employer=employer_profile)
@@ -68,7 +90,8 @@ def edit_job(request, job_id):
 
 		if form.is_valid():
 			form.save()
-			return redirect('job_list')
+			messages.success(request, 'Job posting updated successfully.')
+			return redirect('my_jobs')
 	else:
 		form = JobPostingForm(instance=job)
 
