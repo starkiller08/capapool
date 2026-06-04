@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="figma-form-page">
+    <div class="figma-form-card">
+
+        <!-- Small icon at the top of the form card -->
+        <div class="form-icon-box">
+            {% if "Employer" in page_title %}
+                <img src="{% static 'images/briefcase-2.png' %}" alt="employer icon">
+            {% else %}
+                <img src="{% static 'images/icon-users.png' %}" alt="candidate icon">
+            {% endif %}
+        </div>
+
+        <h1>{{ page_title }}</h1>
+
+        {% if "Employer" in page_title %}
+            <p class="form-subtitle">Create an employer account to start hiring.</p>
+        {% else %}
+            <p class="form-subtitle">Create your candidate account and start finding jobs.</p>
+        {% endif %}
+
+        <!-- Django still creates and handles the form fields -->
+        <form method="post" enctype="multipart/form-data" class="simple-form">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="figma-submit-btn">
+                {{ button_text }} →
+            </button>
+        </form>
+
+        <div class="form-bottom-text">
+            <a href="{% url 'login' %}">Already have an account? Sign in</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

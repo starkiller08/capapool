@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Top section for the jobs page -->
+<section class="jobs-top-section">
+    <h1>Find your next role</h1>
+
+    <!-- This search form uses the existing Django job_search route -->
+    <form method="get" action="{% url 'job_search' %}" class="figma-job-search">
+        <input type="text" name="q" placeholder="Job title, keywords, or company...">
+        <input type="text" name="location" placeholder="Location">
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+<section class="figma-jobs-layout">
+
+    <!-- Static filter sidebar for visual design.
+         These checkboxes are not connected to backend filtering yet. -->
+    <aside class="job-filter-box">
+        <h2>Filters</h2>
+
+        <div class="filter-group">
+            <h3>Job Type</h3>
+            <label><input type="checkbox"> Full-time</label>
+            <label><input type="checkbox"> Part-time</label>
+            <label><input type="checkbox"> Contract</label>
+            <label><input type="checkbox"> Freelance</label>
+        </div>
+
+        <div class="filter-group">
+            <h3>Experience Level</h3>
+            <label><input type="checkbox"> Entry Level</label>
+            <label><input type="checkbox"> Mid Level</label>
+            <label><input type="checkbox"> Senior Level</label>
+            <label><input type="checkbox"> Director</label>
+        </div>
+
+        <a href="{% url 'create_job' %}" class="create-job-link">Create a job posting</a>
+    </aside>
+
+    <!-- Main job results area -->
+    <section class="job-results-area">
+        <div class="job-results-header">
+            <p>Showing jobs</p>
+            <p>Sort by: <strong>Most Relevant</strong></p>
+        </div>
+
+        {% for job in jobs %}
+            <!-- One job card from the database -->
+            <div class="figma-job-card">
+                <div class="company-initials">
+                    {{ job.employer.company_name|slice:":2" }}
+                </div>
+
+                <div class="job-main-info">
+                    <h2>{{ job.job_title }}</h2>
+                    <p class="company-name">{{ job.employer.company_name }}</p>
+
+                    <div class="job-meta-row">
+                        <span>{{ job.job_location }}</span>
+                        <span>{{ job.get_work_mode_display }}</span>
+                        <span>{{ job.required_years_of_experience }} years exp</span>
+                    </div>
+
+                    <p class="job-description">
+                        {{ job.job_description }}
+                    </p>
+
+                    <div class="job-actions">
+                        <a href="{% url 'recommended_candidates' job.id %}" class="btn primary-btn">
+                            Recommended Candidates
+                        </a>
+
+                        <a href="{% url 'edit_job' job.id %}" class="btn secondary-btn">
+                            Edit Job
+                        </a>
+                    </div>
+                </div>
+
+                <span class="posted-badge">Active</span>
+            </div>
+        {% empty %}
+            <div class="empty-message">
+                <p>No job postings available.</p>
+            </div>
+        {% endfor %}
+    </section>
+
+</section>
+
+{% endblock %}

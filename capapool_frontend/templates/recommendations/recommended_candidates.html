@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="jobs-top-section">
+    <h1>Recommended Candidates</h1>
+
+    <p class="recommended-subtitle">
+        Showing candidate matches for <strong>{{ job.job_title }}</strong>.
+    </p>
+</section>
+
+<section class="figma-jobs-layout">
+
+    <!-- Small side panel to explain the matching result -->
+    <aside class="job-filter-box">
+        <h2>Match Summary</h2>
+
+        <div class="filter-group">
+            <h3>Job</h3>
+            <p>{{ job.job_title }}</p>
+        </div>
+
+        <div class="filter-group">
+            <h3>Results</h3>
+            <p>Top recommended candidates based on skills and profile details.</p>
+        </div>
+
+        <a href="{% url 'candidate_list' %}" class="create-job-link">
+            Back to all candidates
+        </a>
+    </aside>
+
+    <section class="job-results-area">
+        <div class="job-results-header">
+            <p>Recommended candidate matches</p>
+            <p>Sort by: <strong>Match Score</strong></p>
+        </div>
+
+        {% for item in results %}
+            <!-- One recommended candidate from the backend -->
+            <div class="figma-job-card">
+                <div class="company-initials">
+                    {{ item.candidate.full_name|slice:":2" }}
+                </div>
+
+                <div class="job-main-info">
+                    <h2>{{ item.candidate.full_name }}</h2>
+                    <p class="company-name">{{ item.candidate.contact_email }}</p>
+
+                    <div class="job-meta-row">
+                        <span>{{ item.candidate.get_education_level_display }}</span>
+                        <span>{{ item.candidate.major }}</span>
+                        <span>{{ item.candidate.years_of_experience }} years exp</span>
+                    </div>
+
+                    <p class="job-description">
+                        <strong>Preferred Location:</strong>
+                        {{ item.candidate.preferred_location }}
+                    </p>
+
+                    <p class="job-description">
+                        <strong>Preferred Work Mode:</strong>
+                        {{ item.candidate.preferred_work_mode }}
+                    </p>
+
+                    <p class="job-description">
+                        <strong>Skills:</strong>
+                        {% for skill in item.candidate.skills.all %}
+                            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            No skills listed.
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <span class="match-score">
+                    Match: {{ item.score }}
+                </span>
+            </div>
+        {% empty %}
+            <div class="empty-message">
+                <p>No recommended candidates found.</p>
+            </div>
+        {% endfor %}
+    </section>
+
+</section>
+
+{% endblock %}
