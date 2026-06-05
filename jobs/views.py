@@ -6,6 +6,8 @@ from employers.models import EmployerProfile
 from .models import JobPosting
 from .forms import JobPostingForm
 
+from django.db.models import Q
+from difflib import SequenceMatcher as sm
 # Create your views here.
 
 def job_list(request):
@@ -17,14 +19,97 @@ def job_list(request):
 	})
 
 
+def is_fuzzy_match(search_text, target_text):
+	if not search_text or not target_text:
+		return False
+
+	search_text = search_text.lower()
+	target_text = target_text.lower()
+
+	if search_text in target_text:
+		return True
+
+	similarity = sm(None, search_text, target_text).ratio()
+
+	return similarity >= 0.65
+
+
 def job_search(request):
 	# get the search word from the URL, example: /jobs/search/?q=python
-	query = request.GET.get('q', '')
+	query = request.GET.get('q', '').strip()
+	location = request.GET.get('location', '').strip()
+	work_mode = request.GET.get('work_mode', '').strip()
+	education = request.GET.get('education', '').strip()
+	experience = request.GET.get('experience', '').strip()
+
 	jobs = JobPosting.objects.filter(is_active=True)
 
 	if query:
 		# search will be from job description
-		jobs = jobs.filter(job_description__icontains=query)
+		jobs = jobs.filter(
+			Q(job_title__icontains=query) |
+			Q(job_description__icontains=query) |
+			Q(job_location__icontains=query) |
+			Q(work_mode__icontains=query) |            
+			Q(employer__company_name__icontains=query) |           
+			Q(employer__company_description__icontains=query) |            
+			Q(required_skills__name__icontains=query)
+		).distinct()        
+
+		# If normal search returns nothing, try simple fuzzy search        
+		if not jobs.exists():
+			all_jobs = JobPosting.objects.filter(is_active=True).distinct()
+			fuzzy_job_ids = []
+
+			for job in all_jobs:
+				skill_names = ' '.join(skill.name for skill in job.required_skills.all())
+
+				searchable_text = ' '.join([
+					job.job_title,
+					job.job_description,
+					job.job_location,
+					job.work_mode,
+					job.employer.company_name,
+					job.employer.company_description,
+					skill_names,
+				])
+
+				if is_fuzzy_match(query, searchable_text):
+					fuzzy_job_ids.append(job.id)
+
+			jobs = JobPosting.objects.filter(id__in=fuzzy_job_ids)    
+	
+
+	# Filters    
+	if location:
+		jobs = jobs.filter(job_location__icontains=location)
+
+
+	if work_mode:
+		jobs = jobs.filter(work_mode=work_mode)
+
+
+	if education:
+		jobs = jobs.filter(required_education_level=education)
+
+
+	if experience:
+		jobs = jobs.filter(required_years_of_experience__lte=experience)    
+
+
+	jobs = jobs.distinct().order_by('-created_at')
+
+
+	return render(request, 'jobs/job_search.html', {
+		'jobs': jobs,
+		'query': query,
+		'location': location,
+		'work_mode': work_mode,
+		'education': education,
+		'experience': experience,
+		'work_mode_choices': JobPosting.work_mode_choices,
+		'education_choices': JobPosting.education_choices,
+	})
 
 	return render(request, 'jobs/job_search.html', {
 		'jobs': jobs,

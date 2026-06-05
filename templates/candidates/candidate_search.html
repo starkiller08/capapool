@@ -1,5 +1,138 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Search Candidates</title>
+</head>
+<body>
+    <h1>Search / Filter Candidates</h1>
+
+    <form method="get" action="{% url 'candidate_search' %}">
+        <p>
+            <label>Keyword:</label>
+            <input type="text" name="q" value="{{ query }}" placeholder="e.g. Python developer">
+        </p>
+
+        <p>
+            <label>Skill:</label>
+            <input type="text" name="skill" value="{{ skill }}" placeholder="e.g. Python">
+        </p>
+
+        <p>
+            <label>Education:</label>
+            <select name="education">
+                <option value="">Any</option>
+                {% for value, label in education_choices %}
+                    <option value="{{ value }}" {% if education == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label>Minimum experience:</label>
+            <input type="number" name="experience" value="{{ experience }}" placeholder="e.g. 2">
+        </p>
+
+        <p>
+            <label>Preferred location:</label>
+            <input type="text" name="preferred_location" value="{{ preferred_location }}" placeholder="e.g. Sydney">
+        </p>
+
+        <p>
+            <label>Preferred work mode:</label>
+            <select name="preferred_work_mode">
+                <option value="">Any</option>
+                {% for value, label in work_mode_choices %}
+                    <option value="{{ value }}" {% if preferred_work_mode == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <button type="submit">Search / Filter</button>
+    </form>
+
+    <hr>
+
+    {% for candidate in candidates %}
+        <div>
+            <h2>{{ candidate.full_name }}</h2>
+
+            <p>
+                <strong>Email:</strong>
+                {{ candidate.contact_email }}
+            </p>
+
+            <p>
+                <strong>Education:</strong>
+                {{ candidate.get_education_level_display }}
+            </p>
+
+            <p>
+                <strong>Major:</strong>
+                {{ candidate.major }}
+            </p>
+
+            <p>
+                <strong>Experience:</strong>
+                {{ candidate.years_of_experience }} years
+            </p>
+
+            <p>
+                <strong>Work Experience:</strong>
+                {{ candidate.work_experience }}
+            </p>
+
+            <p>
+                <strong>Preferred Location:</strong>
+                {{ candidate.preferred_location }}
+            </p>
+
+            <p>
+                <strong>Preferred Work Mode:</strong>
+                {{ candidate.get_preferred_work_mode_display }}
+            </p>
+
+            <p>
+                <strong>Skills:</strong>
+                {% for skill in candidate.skills.all %}
+                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No skills listed.
+                {% endfor %}
+            </p>
+
+            {% if user.is_staff %}
+                <p>
+                    <a href="{% url 'edit_candidate_profile' candidate.id %}">Edit this candidate profile</a>
+                </p>
+            {% endif %}
+        </div>
+
+        <hr>
+    {% empty %}
+        <p>No matching candidates found.</p>
+    {% endfor %}
+
+    <p>
+        <a href="{% url 'candidate_list' %}">Back to all candidates</a>
+    </p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html>
 
 <head>
 	<title>Search Candidates</title>
@@ -80,3 +213,4 @@
 </body>
 
 </html>
+-->

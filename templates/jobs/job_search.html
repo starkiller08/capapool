@@ -1,5 +1,126 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Search Jobs</title>
+</head>
+<body>
+    <h1>Search Jobs</h1>
+
+    <form method="get" action="{% url 'job_search' %}">
+        <p>
+            <label>Keyword:</label>
+            <input type="text" name="q" value="{{ query }}" placeholder="e.g. software engineer">
+        </p>
+
+        <p>
+            <label>Location:</label>
+            <input type="text" name="location" value="{{ location }}" placeholder="e.g. Sydney">
+        </p>
+
+        <p>
+            <label>Work mode:</label>
+            <select name="work_mode">
+                <option value="">Any</option>
+                {% for value, label in work_mode_choices %}
+                    <option value="{{ value }}" {% if work_mode == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label>Education:</label>
+            <select name="education">
+                <option value="">Any</option>
+                {% for value, label in education_choices %}
+                    <option value="{{ value }}" {% if education == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label>Maximum required experience:</label>
+            <input type="number" name="experience" value="{{ experience }}" placeholder="e.g. 2">
+        </p>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    {% if query or location or work_mode or education or experience %}
+        <p>
+            Showing search/filter results.
+        </p>
+    {% endif %}
+
+    {% for job in jobs %}
+        <div>
+            <h2>{{ job.job_title }}</h2>
+
+            <p>
+                <strong>Company:</strong>
+                {{ job.employer.company_name }}
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                {{ job.job_description }}
+            </p>
+
+            <p>
+                <strong>Required Education:</strong>
+                {{ job.get_required_education_level_display }}
+            </p>
+
+            <p>
+                <strong>Experience Required:</strong>
+                {{ job.required_years_of_experience }} years
+            </p>
+
+            <p>
+                <strong>Work Mode:</strong>
+                {{ job.get_work_mode_display }}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                {{ job.job_location }}
+            </p>
+
+            <p>
+                <strong>Skills:</strong>
+                {% for skill in job.required_skills.all %}
+                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No skills listed.
+                {% endfor %}
+            </p>
+        </div>
+
+        <hr>
+    {% empty %}
+        <p>No matching jobs found.</p>
+    {% endfor %}
+
+    <p>
+        <a href="{% url 'job_list' %}">Back to all jobs</a>
+    </p>
+</body>
+</html>
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
+<html>
 
 <head>
 	<title>Search Jobs</title>
@@ -58,3 +179,4 @@
 </body>
 
 </html>
+-->
