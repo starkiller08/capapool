@@ -14,11 +14,29 @@
 			<strong>{{ candidate.full_name }}</strong>
 		</p>
 
+		<p>
+			<strong>Membership:</strong>
+			{% if candidate.is_member %}
+				Member - unlimited recommendations
+			{% else %}
+				Non-member - showing top 10 recommendations
+			{% endif %}
+		</p>
+
 		<hr>
 
 		{% for item in results %}
 			<div>
 				<h2>{{ item.job.job_title }}</h2>
+
+				<p>
+					<strong>Employer Membership:</strong>
+					{% if job.employer.is_member %}
+						Member - unlimited recommendations
+					{% else %}
+						Non-member - showing top 10 recommendations
+					{% endif %}
+				</p>
 
 				<p>
 					<strong>Company:</strong>
