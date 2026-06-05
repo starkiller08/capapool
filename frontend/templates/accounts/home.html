@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="figma-hero">
+    <h1>
+        Find the job that<br>
+        <span>fits your life</span>
+    </h1>
+
+    <p>
+        Connect with top employers, discover amazing opportunities, and take the
+        next step in your career journey with CapaPool.
+    </p>
+
+    <div class="hero-buttons">
+        <a href="/jobs/" class="btn primary-btn">
+            <img src="{% static 'images/icon-search.png' %}" class="button-icon" alt="">
+            Search Jobs
+        </a>
+
+        <a href="/jobs/create/" class="btn secondary-btn">
+            <img src="{% static 'images/briefcase.png' %}" class="button-icon" alt="">
+            Post a Job
+        </a>
+    </div>
+</section>
+
+<section class="figma-cards">
+    <div class="figma-card light-card">
+        <img src="{% static 'images/icon-users.png' %}" class="feature-icon" alt="">
+
+        <h2>For Candidates</h2>
+        <p>
+            Create a profile, upload your resume, and start applying to jobs.
+            We make the process simple and easy to use.
+        </p>
+
+        <ul>
+            <li>One-click applications</li>
+            <li>Recommended jobs</li>
+            <li>Candidate profile management</li>
+        </ul>
+
+        <a href="/accounts/register/candidate/">Create candidate profile →</a>
+    </div>
+
+    <div class="figma-card dark-card">
+        <img src="{% static 'images/briefcase.png' %}" class="feature-icon" alt="">
+
+        <h2>For Employers</h2>
+        <p>
+            Post jobs, manage candidates, and find suitable applicants using
+            the matching features in the system.
+        </p>
+
+        <ul>
+            <li>Post job openings</li>
+            <li>Search candidate profiles</li>
+            <li>View recommended candidates</li>
+        </ul>
+
+        <a href="/accounts/register/employer/">Register as employer →</a>
+    </div>
+</section>
+
+{% endblock %}

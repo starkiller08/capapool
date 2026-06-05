@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="figma-dashboard-page">
+
+    <div class="figma-dashboard-header">
+        <div>
+            <p class="hero-label">Account Dashboard</p>
+            <h1>Welcome back, {{ user.username }}</h1>
+            <p>Manage your profile, jobs, and recommendations from one place.</p>
+        </div>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="dashboard-logout-btn">Logout</button>
+        </form>
+    </div>
+
+    {% if candidate_profile %}
+        <div class="figma-dashboard-card">
+            <div class="dashboard-card-top">
+                <div class="form-icon-box">
+                    <img src="{% static 'images/icon-users.png' %}" alt="candidate icon">
+                </div>
+
+                <div>
+                    <h2>Candidate Options</h2>
+                    <p>Candidate profile: <strong>{{ candidate_profile.full_name }}</strong></p>
+                </div>
+            </div>
+
+            <div class="figma-dashboard-links">
+                <a href="{% url 'my_candidate_profile' %}">View my profile</a>
+                <a href="{% url 'edit_my_candidate_profile' %}">Edit my profile</a>
+                <a href="{% url 'recommended_jobs' %}">View recommended jobs</a>
+                <a href="{% url 'job_list' %}">Browse jobs</a>
+                <a href="{% url 'job_search' %}">Search jobs</a>
+            </div>
+        </div>
+
+    {% elif employer_profile %}
+        <div class="figma-dashboard-card">
+            <div class="dashboard-card-top">
+                <div class="form-icon-box dark-icon-box">
+                    <img src="{% static 'images/briefcase-2.png' %}" alt="employer icon">
+                </div>
+
+                <div>
+                    <h2>Employer Options</h2>
+                    <p>Company: <strong>{{ employer_profile.company_name }}</strong></p>
+                </div>
+            </div>
+
+            <div class="figma-dashboard-links">
+                <a href="{% url 'create_job' %}">Create a job post</a>
+                <a href="{% url 'job_list' %}">View job postings</a>
+                <a href="{% url 'candidate_list' %}">View candidate profiles</a>
+                <a href="{% url 'candidate_search' %}">Search candidates</a>
+            </div>
+        </div>
+
+    {% elif user.is_staff %}
+        <div class="figma-dashboard-card">
+            <div class="dashboard-card-top">
+                <div class="form-icon-box dark-icon-box">
+                    <img src="{% static 'images/briefcase-2.png' %}" alt="admin icon">
+                </div>
+
+                <div>
+                    <h2>Admin Options</h2>
+                    <p>This is an admin/staff account.</p>
+                </div>
+            </div>
+
+            <div class="figma-dashboard-links">
+                <a href="{% url 'job_list' %}">View jobs</a>
+                <a href="{% url 'candidate_list' %}">View candidates</a>
+                <a href="/admin/">Go to Django admin</a>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="figma-dashboard-card">
+            <h2>General User Options</h2>
+            <p>This account does not have a candidate or employer profile yet.</p>
+
+            <div class="figma-dashboard-links">
+                <a href="{% url 'job_list' %}">View jobs</a>
+            </div>
+        </div>
+    {% endif %}
+
+</section>
+
+{% endblock %}

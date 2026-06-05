@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="figma-form-page">
+    <div class="figma-form-card">
+
+        <!-- Candidate profile icon -->
+        <div class="form-icon-box">
+            <img src="{% static 'images/icon-users.png' %}" alt="candidate icon">
+        </div>
+
+        <h1>{{ page_title }}</h1>
+        <p class="form-subtitle">Enter your profile details so employers can find you.</p>
+
+        <!-- Django handles saving the candidate profile -->
+        <form method="post" enctype="multipart/form-data" class="simple-form">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="figma-submit-btn">
+                {{ button_text }} →
+            </button>
+        </form>
+
+        <div class="form-bottom-text">
+            <a href="{% url 'candidate_list' %}">Back to candidate list</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="figma-form-page">
+    <div class="figma-form-card">
+
+        <!-- Login icon -->
+        <div class="form-icon-box">
+            <img src="{% static 'images/briefcase-2.png' %}" alt="login icon">
+        </div>
+
+        <h1>Sign In</h1>
+        <p class="form-subtitle">Sign in to access your dashboard and continue.</p>
+
+        <!-- Django handles the login form in the backend -->
+        <form method="post" class="simple-form">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="figma-submit-btn">
+                Sign In →
+            </button>
+        </form>
+
+        <div class="form-bottom-text">
+            <a href="{% url 'home' %}">Back to home</a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

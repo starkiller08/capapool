@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="jobs-top-section">
+    <h1>Search Jobs</h1>
+
+    <!-- This keeps the existing backend job search working -->
+    <form method="get" class="figma-job-search">
+        <input type="text" name="q" value="{{ query }}" placeholder="Job title, keywords, or company...">
+        <input type="text" name="location" placeholder="Location">
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+<section class="figma-jobs-layout">
+
+    <!-- Sidebar is mostly visual, like the Figma design -->
+    <aside class="job-filter-box">
+        <h2>Filters</h2>
+
+        <div class="filter-group">
+            <h3>Current Search</h3>
+
+            {% if query %}
+                <p>Keyword: <strong>{{ query }}</strong></p>
+            {% else %}
+                <p>No keyword entered.</p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'job_list' %}" class="create-job-link">
+            Back to all jobs
+        </a>
+    </aside>
+
+    <section class="job-results-area">
+        <div class="job-results-header">
+            <p>Job search results</p>
+            <p>Sort by: <strong>Most Relevant</strong></p>
+        </div>
+
+        {% for job in jobs %}
+            <!-- One job result from the database -->
+            <div class="figma-job-card">
+                <div class="company-initials">
+                    {{ job.employer.company_name|slice:":2" }}
+                </div>
+
+                <div class="job-main-info">
+                    <h2>{{ job.job_title }}</h2>
+                    <p class="company-name">{{ job.employer.company_name }}</p>
+
+                    <div class="job-meta-row">
+                        <span>{{ job.job_location }}</span>
+                        <span>{{ job.get_work_mode_display }}</span>
+                    </div>
+
+                    <p class="job-description">
+                        {{ job.job_description }}
+                    </p>
+                </div>
+
+                <span class="posted-badge">Active</span>
+            </div>
+        {% empty %}
+            <div class="empty-message">
+                <p>No matching jobs found.</p>
+            </div>
+        {% endfor %}
+    </section>
+
+</section>
+
+{% endblock %}
