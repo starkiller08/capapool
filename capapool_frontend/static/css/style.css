@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f6f8fc;
+    background: #f8fafc;
     color: #1f2937;
 }
 
@@ -30,15 +30,28 @@ body {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 24px;
     font-weight: bold;
-    color: #2563eb;
+    color: #111827;
     text-decoration: none;
+}
+
+.logo span span {
+    color: #2563eb;
+}
+
+.logo-img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
 }
 
 .nav-links {
     display: flex;
-    gap: 22px;
+    gap: 26px;
     align-items: center;
 }
 
@@ -46,6 +59,7 @@ body {
     text-decoration: none;
     color: #374151;
     font-size: 15px;
+    font-weight: bold;
 }
 
 .nav-links a:hover {
@@ -55,8 +69,8 @@ body {
 .post-job-btn {
     background: #2563eb;
     color: white !important;
-    padding: 10px 16px;
-    border-radius: 8px;
+    padding: 11px 18px;
+    border-radius: 10px;
 }
 
 .menu-btn {
@@ -70,69 +84,39 @@ body {
 /* Footer */
 .footer {
     text-align: center;
-    padding: 30px;
-    color: #6b7280;
+    padding: 42px 24px;
+    color: #64748b;
+    border-top: 1px solid #e5e7eb;
+    background: white;
 }
 
-/* Mobile layout */
-@media (max-width: 768px) {
-    .menu-btn {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 65px;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        padding: 20px;
-        border-bottom: 1px solid #e5e7eb;
-    }
-
-    .nav-links.show {
-        display: flex;
-    }
-}
-
-/* Homepage hero section */
-.hero {
-    max-width: 1150px;
-    margin: 50px auto;
-    padding: 60px 24px;
-    background: #eef4ff;
-    border-radius: 20px;
-}
-
-.hero-text {
-    max-width: 650px;
-}
-
-.hero h1 {
-    font-size: 42px;
-    margin-bottom: 18px;
-    color: #111827;
-}
-
-.hero p {
-    font-size: 18px;
-    color: #4b5563;
-    line-height: 1.6;
-    margin-bottom: 28px;
-}
-
-.hero-buttons {
+.footer-logo {
     display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 12px;
 }
 
+.footer-logo span span {
+    color: #2563eb;
+}
+
+.footer-logo-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+/* Buttons */
 .btn {
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 20px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
 }
@@ -145,450 +129,14 @@ body {
 .secondary-btn {
     background: white;
     color: #2563eb;
-    border: 1px solid #2563eb;
-}
-
-/* Homepage cards */
-.quick-links {
-    max-width: 1150px;
-    margin: 40px auto;
-    padding: 0 24px;
-}
-
-.quick-links h2 {
-    margin-bottom: 20px;
-    font-size: 28px;
-}
-
-.card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-}
-
-.info-card {
-    background: white;
-    padding: 24px;
-    border-radius: 14px;
-    border: 1px solid #e5e7eb;
-}
-
-.info-card h3 {
-    margin-bottom: 10px;
-}
-
-.info-card p {
-    color: #6b7280;
-    margin-bottom: 16px;
-    line-height: 1.5;
-}
-
-.info-card a {
-    color: #2563eb;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Mobile homepage layout */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .card-row {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Page header used on jobs and other pages */
-.page-header {
-    max-width: 1150px;
-    margin: 40px auto 20px;
-    padding: 0 24px;
-}
-
-.page-header h1 {
-    font-size: 36px;
-    margin-bottom: 8px;
-    color: #111827;
-}
-
-.page-header p {
-    color: #6b7280;
-    font-size: 17px;
-}
-
-/* Search section for jobs page */
-.job-search-section {
-    max-width: 1150px;
-    margin: 20px auto;
-    padding: 0 24px;
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.job-search-form {
-    display: flex;
-    gap: 10px;
-    flex: 1;
-    min-width: 260px;
-}
-
-.job-search-form input {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.job-search-form button {
-    padding: 13px 20px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.create-job-link {
-    color: #2563eb;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Job card layout */
-.jobs-container {
-    max-width: 1150px;
-    margin: 25px auto 60px;
-    padding: 0 24px;
-    display: grid;
-    gap: 18px;
-}
-
-.job-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    padding: 24px;
-}
-
-.job-card-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    align-items: flex-start;
-    margin-bottom: 14px;
-}
-
-.job-card h2 {
-    font-size: 24px;
-    margin-bottom: 4px;
-}
-
-.company-name {
-    color: #6b7280;
-}
-
-.work-mode {
-    background: #eef4ff;
-    color: #2563eb;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.job-description {
-    color: #4b5563;
-    line-height: 1.6;
-    margin-bottom: 18px;
-}
-
-.job-details {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-    color: #374151;
-}
-
-.job-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.empty-message {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-}
-
-/* Mobile jobs page */
-@media (max-width: 768px) {
-    .job-card-header {
-        flex-direction: column;
-    }
-
-    .job-details {
-        grid-template-columns: 1fr;
-    }
-
-    .job-search-form {
-        flex-direction: column;
-    }
-}
-
-/* Simple form pages */
-.form-page {
-    max-width: 760px;
-    margin: 45px auto 70px;
-    padding: 0 24px;
-}
-
-.form-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 30px;
-}
-
-.form-card h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
-}
-
-.form-subtitle {
-    color: #6b7280;
-    margin-bottom: 24px;
-}
-
-/* Django form.as_p creates labels and fields inside p tags */
-.simple-form p {
-    margin-bottom: 16px;
-}
-
-.simple-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.simple-form input,
-.simple-form select,
-.simple-form textarea {
-    width: 100%;
-    padding: 12px 13px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 15px;
-    font-family: Arial, sans-serif;
-}
-
-.simple-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.simple-form .helptext {
-    display: block;
-    color: #6b7280;
-    font-size: 13px;
-    margin-top: 4px;
-}
-
-.simple-form ul {
-    color: #dc2626;
-    margin: 8px 0 12px 18px;
-}
-
-.back-link {
-    margin-top: 20px;
-}
-
-.back-link a {
-    color: #2563eb;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Candidate search form */
-.candidate-search-form {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr auto;
-    gap: 10px;
-    flex: 1;
-    min-width: 260px;
-}
-
-.candidate-search-form input,
-.candidate-search-form select {
-    padding: 13px 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.candidate-search-form button {
-    padding: 13px 20px;
-    border: none;
-    background: #2563eb;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .candidate-search-form {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Match score badge used on recommendation pages */
-.match-score {
-    background: #dcfce7;
-    color: #166534;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-/* Dashboard page */
-.dashboard-page {
-    max-width: 950px;
-    margin: 45px auto 70px;
-    padding: 0 24px;
-}
-
-.dashboard-header {
-    margin-bottom: 22px;
-}
-
-.dashboard-header h1 {
-    font-size: 36px;
-    margin-bottom: 8px;
-}
-
-.dashboard-header p {
-    color: #6b7280;
-    font-size: 17px;
-}
-
-.dashboard-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 28px;
-}
-
-.dashboard-card h2 {
-    font-size: 26px;
-    margin-bottom: 12px;
-}
-
-.dashboard-info {
-    color: #4b5563;
-    margin-bottom: 20px;
-}
-
-.dashboard-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-}
-
-.dashboard-links a {
-    display: block;
-    padding: 16px;
-    border-radius: 10px;
-    background: #f3f6ff;
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.dashboard-links a:hover {
-    background: #e7efff;
-}
-
-.logout-form {
-    margin-top: 24px;
-}
-
-.logout-form button {
-    background: #111827;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .dashboard-links {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Small text used for search result pages */
-.search-note {
-    color: #4b5563;
-    margin-bottom: 4px;
-}
-
-.hero {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    align-items: center;
-}
-
-.hero-label {
-    color: #2563eb;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.hero-box {
-    background: white;
     border: 1px solid #dbeafe;
-    border-radius: 16px;
-    padding: 24px;
-    min-width: 260px;
 }
 
-.hero-box h3 {
-    margin-bottom: 14px;
-}
-
-.hero-box p {
-    background: #f3f6ff;
-    padding: 10px 12px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    color: #374151;
-    font-size: 15px;
-}
-
-@media (max-width: 768px) {
-    .hero {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .hero-box {
-        width: 100%;
-    }
+.button-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 /* Figma-style homepage */
@@ -619,11 +167,11 @@ body {
     color: #475569;
 }
 
-.button-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    vertical-align: middle;
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .figma-cards {
@@ -705,58 +253,7 @@ body {
     color: #93c5fd;
 }
 
-@media (max-width: 768px) {
-    .figma-hero h1 {
-        font-size: 44px;
-    }
-
-    .figma-hero p {
-        font-size: 18px;
-    }
-
-    .figma-cards {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-
-    .figma-card {
-        padding: 32px;
-    }
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
-.footer-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    font-weight: bold;
-    color: #111827;
-    margin-bottom: 12px;
-}
-
-.footer-logo span span {
-    color: #2563eb;
-}
-
-.footer-logo-img {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-}
-
-/* Figma-style jobs page */
+/* Figma-style jobs and candidate listing pages */
 .jobs-top-section {
     max-width: 1150px;
     margin: 60px auto 50px;
@@ -775,12 +272,14 @@ body {
     gap: 18px;
 }
 
-.figma-job-search input {
+.figma-job-search input,
+.figma-job-search select {
     height: 58px;
     border: 1px solid #cbd5e1;
     border-radius: 14px;
     padding: 0 18px;
     font-size: 17px;
+    background: white;
 }
 
 .figma-job-search button {
@@ -835,6 +334,12 @@ body {
     margin-right: 10px;
 }
 
+.create-job-link {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .job-results-header {
     display: flex;
     justify-content: space-between;
@@ -876,6 +381,10 @@ body {
     color: #0f172a;
 }
 
+.company-name {
+    color: #64748b;
+}
+
 .job-meta-row {
     display: flex;
     flex-wrap: wrap;
@@ -887,9 +396,17 @@ body {
 .job-description {
     color: #475569;
     line-height: 1.5;
+    margin-bottom: 16px;
 }
 
-.posted-badge {
+.job-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.posted-badge,
+.match-score {
     background: #ecfdf5;
     color: #16a34a;
     padding: 8px 14px;
@@ -899,21 +416,30 @@ body {
     white-space: nowrap;
 }
 
-@media (max-width: 900px) {
-    .figma-job-search {
-        grid-template-columns: 1fr;
-    }
-
-    .figma-jobs-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .figma-job-card {
-        grid-template-columns: 1fr;
-    }
+.inactive-badge {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
-/* Figma-style registration/login form pages */
+.empty-message {
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+.recommended-subtitle {
+    color: #64748b;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+/* Figma-style form pages */
 .figma-form-page {
     max-width: 620px;
     margin: 65px auto 70px;
@@ -938,6 +464,10 @@ body {
     margin: 0 auto 24px;
 }
 
+.dark-icon-box {
+    background: #111827;
+}
+
 .form-icon-box img {
     width: 34px;
     height: 34px;
@@ -957,47 +487,32 @@ body {
     margin-bottom: 34px;
 }
 
-.figma-submit-btn {
+.simple-form p {
+    margin-bottom: 16px;
+}
+
+.simple-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.simple-form input,
+.simple-form select,
+.simple-form textarea {
     width: 100%;
-    height: 58px;
-    border: none;
-    border-radius: 12px;
-    background: #111827;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
 }
 
-.figma-submit-btn:hover {
-    background: #0f172a;
+.simple-form textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
-.form-bottom-text {
-    text-align: center;
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid #e5e7eb;
-}
-
-.form-bottom-text a {
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-@media (max-width: 768px) {
-    .figma-form-card {
-        padding: 30px;
-    }
-}
-
-.dark-icon-box {
-    background: #111827;
-}
-
-/* Make checkbox lists line up properly inside Django forms */
 .simple-form ul {
     list-style: none;
     margin: 8px 0 18px 0;
@@ -1014,6 +529,129 @@ body {
 .simple-form input[type="checkbox"] {
     width: auto;
     margin: 0;
+}
+
+.simple-form .helptext {
+    display: block;
+    color: #64748b;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.figma-submit-btn {
+    width: 100%;
+    height: 58px;
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.form-bottom-text {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.form-bottom-text a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Dashboard */
+.figma-dashboard-page {
+    max-width: 1050px;
+    margin: 70px auto;
+    padding: 0 24px;
+}
+
+.figma-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.hero-label {
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.figma-dashboard-header h1 {
+    font-size: 42px;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.figma-dashboard-header p {
+    color: #64748b;
+    font-size: 17px;
+}
+
+.dashboard-logout-btn {
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: white;
+    padding: 14px 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.figma-dashboard-card {
+    background: white;
+    border-radius: 24px;
+    padding: 38px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.dashboard-card-top {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.dashboard-card-top h2 {
+    font-size: 28px;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.dashboard-card-top p {
+    color: #64748b;
+}
+
+.figma-dashboard-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.figma-dashboard-links a {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.message-box {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
 }
 
 /* Candidate profile page */
@@ -1119,106 +757,62 @@ body {
     flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-    .profile-details {
+/* Mobile layout */
+@media (max-width: 900px) {
+    .figma-job-search,
+    .figma-jobs-layout,
+    .figma-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .figma-job-card {
         grid-template-columns: 1fr;
     }
 }
 
-/* Figma-style dashboard page */
-.figma-dashboard-page {
-    max-width: 1050px;
-    margin: 70px auto;
-    padding: 0 24px;
-}
-
-.figma-dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    align-items: center;
-    margin-bottom: 35px;
-}
-
-.figma-dashboard-header h1 {
-    font-size: 42px;
-    color: #0f172a;
-    margin-bottom: 10px;
-}
-
-.figma-dashboard-header p {
-    color: #64748b;
-    font-size: 17px;
-}
-
-.dashboard-logout-btn {
-    border: none;
-    border-radius: 12px;
-    background: #111827;
-    color: white;
-    padding: 14px 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.figma-dashboard-card {
-    background: white;
-    border-radius: 24px;
-    padding: 38px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-}
-
-.dashboard-card-top {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    margin-bottom: 30px;
-}
-
-.dashboard-card-top h2 {
-    font-size: 28px;
-    color: #0f172a;
-    margin-bottom: 6px;
-}
-
-.dashboard-card-top p {
-    color: #64748b;
-}
-
-.figma-dashboard-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-}
-
-.figma-dashboard-links a {
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 20px;
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.figma-dashboard-links a:hover {
-    background: #eef4ff;
-}
-
 @media (max-width: 768px) {
-    .figma-dashboard-header {
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .figma-hero h1 {
+        font-size: 44px;
+    }
+
+    .figma-hero p {
+        font-size: 18px;
+    }
+
+    .figma-card,
+    .figma-form-card,
+    .profile-card {
+        padding: 30px;
+    }
+
+    .figma-dashboard-header,
+    .dashboard-card-top {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .figma-dashboard-links {
+    .figma-dashboard-links,
+    .profile-details {
         grid-template-columns: 1fr;
     }
-}
-
-/* Small subtitle used on recommendation pages */
-.recommended-subtitle {
-    color: #64748b;
-    font-size: 18px;
-    margin-top: 8px;
 }

@@ -2,7 +2,6 @@
 
 {% block content %}
 
-<!-- Top section for the jobs page -->
 <section class="jobs-top-section">
     <h1>Find your next role</h1>
 
@@ -15,18 +14,14 @@
 </section>
 
 <section class="figma-jobs-layout">
-
-    <!-- Static filter sidebar for visual design.
-         These checkboxes are not connected to backend filtering yet. -->
     <aside class="job-filter-box">
         <h2>Filters</h2>
 
         <div class="filter-group">
             <h3>Job Type</h3>
-            <label><input type="checkbox"> Full-time</label>
-            <label><input type="checkbox"> Part-time</label>
-            <label><input type="checkbox"> Contract</label>
-            <label><input type="checkbox"> Freelance</label>
+            <label><input type="checkbox"> Remote</label>
+            <label><input type="checkbox"> On-site</label>
+            <label><input type="checkbox"> Hybrid</label>
         </div>
 
         <div class="filter-group">
@@ -34,13 +29,11 @@
             <label><input type="checkbox"> Entry Level</label>
             <label><input type="checkbox"> Mid Level</label>
             <label><input type="checkbox"> Senior Level</label>
-            <label><input type="checkbox"> Director</label>
         </div>
 
         <a href="{% url 'create_job' %}" class="create-job-link">Create a job posting</a>
     </aside>
 
-    <!-- Main job results area -->
     <section class="job-results-area">
         <div class="job-results-header">
             <p>Showing jobs</p>
@@ -48,7 +41,6 @@
         </div>
 
         {% for job in jobs %}
-            <!-- One job card from the database -->
             <div class="figma-job-card">
                 <div class="company-initials">
                     {{ job.employer.company_name|slice:":2" }}
@@ -64,9 +56,7 @@
                         <span>{{ job.required_years_of_experience }} years exp</span>
                     </div>
 
-                    <p class="job-description">
-                        {{ job.job_description }}
-                    </p>
+                    <p class="job-description">{{ job.job_description }}</p>
 
                     <div class="job-actions">
                         <a href="{% url 'recommended_candidates' job.id %}" class="btn primary-btn">
@@ -87,7 +77,6 @@
             </div>
         {% endfor %}
     </section>
-
 </section>
 
 {% endblock %}

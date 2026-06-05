@@ -6,10 +6,8 @@
 <section class="jobs-top-section">
     <h1>Search candidates</h1>
 
-    <!-- This form keeps the existing backend candidate search working -->
     <form method="get" class="figma-job-search">
         <input type="text" name="skill" value="{{ skill }}" placeholder="Skill, e.g. Python">
-
         <select name="education">
             <option value="">Any education</option>
             <option value="high_school" {% if education == "high_school" %}selected{% endif %}>High School</option>
@@ -18,27 +16,20 @@
             <option value="master" {% if education == "master" %}selected{% endif %}>Master</option>
             <option value="phd" {% if education == "phd" %}selected{% endif %}>PhD</option>
         </select>
-
         <button type="submit">Search</button>
     </form>
 </section>
 
 <section class="figma-jobs-layout">
-
-    <!-- Sidebar is mainly visual, similar to the Figma jobs page -->
     <aside class="job-filter-box">
         <h2>Filters</h2>
-
         <div class="filter-group">
             <h3>Current Search</h3>
             <p>Skill: <strong>{{ skill }}</strong></p>
             <p>Education: <strong>{{ education }}</strong></p>
             <p>Experience: <strong>{{ experience }}</strong></p>
         </div>
-
-        <a href="{% url 'candidate_list' %}" class="create-job-link">
-            Back to all candidates
-        </a>
+        <a href="{% url 'candidate_list' %}" class="create-job-link">Back to all candidates</a>
     </aside>
 
     <section class="job-results-area">
@@ -48,22 +39,16 @@
         </div>
 
         {% for candidate in candidates %}
-            <!-- One candidate result from the database -->
             <div class="figma-job-card">
-                <div class="company-initials">
-                    {{ candidate.full_name|slice:":2" }}
-                </div>
-
+                <div class="company-initials">{{ candidate.full_name|slice:":2" }}</div>
                 <div class="job-main-info">
                     <h2>{{ candidate.full_name }}</h2>
                     <p class="company-name">{{ candidate.contact_email }}</p>
-
                     <div class="job-meta-row">
                         <span>{{ candidate.get_education_level_display }}</span>
                         <span>{{ candidate.major }}</span>
                         <span>{{ candidate.years_of_experience }} years exp</span>
                     </div>
-
                     <p class="job-description">
                         <strong>Skills:</strong>
                         {% for skill in candidate.skills.all %}
@@ -73,16 +58,12 @@
                         {% endfor %}
                     </p>
                 </div>
-
                 <span class="posted-badge">Profile</span>
             </div>
         {% empty %}
-            <div class="empty-message">
-                <p>No matching candidate found.</p>
-            </div>
+            <div class="empty-message"><p>No matching candidate found.</p></div>
         {% endfor %}
     </section>
-
 </section>
 
 {% endblock %}

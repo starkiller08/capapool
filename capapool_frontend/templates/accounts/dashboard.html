@@ -4,7 +4,6 @@
 {% block content %}
 
 <section class="figma-dashboard-page">
-
     <div class="figma-dashboard-header">
         <div>
             <p class="hero-label">Account Dashboard</p>
@@ -17,6 +16,14 @@
             <button type="submit" class="dashboard-logout-btn">Logout</button>
         </form>
     </div>
+
+    {% if messages %}
+        <div class="message-box">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% if candidate_profile %}
         <div class="figma-dashboard-card">
@@ -55,7 +62,8 @@
 
             <div class="figma-dashboard-links">
                 <a href="{% url 'create_job' %}">Create a job post</a>
-                <a href="{% url 'job_list' %}">View job postings</a>
+                <a href="{% url 'my_jobs' %}">View my job postings</a>
+                <a href="{% url 'job_list' %}">View all job postings</a>
                 <a href="{% url 'candidate_list' %}">View candidate profiles</a>
                 <a href="{% url 'candidate_search' %}">Search candidates</a>
             </div>
@@ -91,7 +99,6 @@
             </div>
         </div>
     {% endif %}
-
 </section>
 
 {% endblock %}

@@ -6,10 +6,8 @@
 <section class="jobs-top-section">
     <h1>Candidate Profiles</h1>
 
-    <!-- Candidate search uses the existing backend search route -->
     <form method="get" action="{% url 'candidate_search' %}" class="figma-job-search">
         <input type="text" name="skill" placeholder="Skill, e.g. Python">
-
         <select name="education">
             <option value="">Any education</option>
             <option value="high_school">High School</option>
@@ -18,34 +16,26 @@
             <option value="master">Master</option>
             <option value="phd">PhD</option>
         </select>
-
         <button type="submit">Search</button>
     </form>
 </section>
 
 <section class="figma-jobs-layout">
-
-    <!-- Simple visual filter/sidebar section -->
     <aside class="job-filter-box">
         <h2>Filters</h2>
-
         <div class="filter-group">
             <h3>Experience</h3>
             <label><input type="checkbox"> 0-1 years</label>
             <label><input type="checkbox"> 2-4 years</label>
             <label><input type="checkbox"> 5+ years</label>
         </div>
-
         <div class="filter-group">
             <h3>Education</h3>
             <label><input type="checkbox"> Diploma</label>
             <label><input type="checkbox"> Bachelor</label>
             <label><input type="checkbox"> Master</label>
         </div>
-
-        <a href="{% url 'create_candidate_profile' %}" class="create-job-link">
-            Create candidate profile
-        </a>
+        <a href="{% url 'create_candidate_profile' %}" class="create-job-link">Create candidate profile</a>
     </aside>
 
     <section class="job-results-area">
@@ -55,11 +45,8 @@
         </div>
 
         {% for candidate in candidates %}
-            <!-- One candidate card from the database -->
             <div class="figma-job-card">
-                <div class="company-initials">
-                    {{ candidate.full_name|slice:":2" }}
-                </div>
+                <div class="company-initials">{{ candidate.full_name|slice:":2" }}</div>
 
                 <div class="job-main-info">
                     <h2>{{ candidate.full_name }}</h2>
@@ -82,9 +69,7 @@
 
                     {% if user.is_staff %}
                         <div class="job-actions">
-                            <a href="{% url 'edit_candidate_profile' candidate.id %}" class="btn secondary-btn">
-                                Edit Candidate
-                            </a>
+                            <a href="{% url 'edit_candidate_profile' candidate.id %}" class="btn secondary-btn">Edit Candidate</a>
                         </div>
                     {% endif %}
                 </div>
@@ -92,12 +77,9 @@
                 <span class="posted-badge">Profile</span>
             </div>
         {% empty %}
-            <div class="empty-message">
-                <p>No candidate profiles found.</p>
-            </div>
+            <div class="empty-message"><p>No candidate profiles found.</p></div>
         {% endfor %}
     </section>
-
 </section>
 
 {% endblock %}

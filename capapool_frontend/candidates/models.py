@@ -19,6 +19,12 @@ class CandidateProfile(models.Model):
 		('phd', 'PhD'),
 	]
 
+	work_mode_choices = [
+		('remote', 'Remote'),
+		('onsite', 'On-site'),
+		('hybrid', 'Hybrid'),
+	]
+
 
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	full_name = models.CharField(max_length=150)
@@ -27,6 +33,10 @@ class CandidateProfile(models.Model):
 	education_level = models.CharField(max_length=50, choices=education_choices)
 	major = models.CharField(max_length=100)
 	years_of_experience = models.PositiveIntegerField(default=0)
+	
+	work_experience = models.TextField(blank=True)
+	is_member = models.BooleanField(default=False)
+
 	skills = models.ManyToManyField(Skill, blank=True)
 	resume = models.FileField(upload_to='resume/', blank=True, null=True)
 	preferred_location = models.CharField(max_length=100, blank=True)

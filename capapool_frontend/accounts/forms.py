@@ -13,6 +13,7 @@ class CandidateRegisterForm(UserCreationForm):
 	education_level = forms.ChoiceField(choices=CandidateProfile.education_choices)
 	major = forms.CharField(max_length=100)
 	years_of_experience = forms.IntegerField(min_value=0)
+	work_experience = forms.CharField(widget=forms.Textarea, required=False)
 	skills = forms.ModelMultipleChoiceField(queryset=CandidateProfile.skills.field.related_model.objects.all(), widget=forms.CheckboxSelectMultiple, required=False)
 	resume = forms.FileField(required=False)
 	preferred_location = forms.CharField(max_length=100, required=False)
@@ -34,6 +35,7 @@ class CandidateRegisterForm(UserCreationForm):
 			education_level = self.cleaned_data['education_level'],
 			major = self.cleaned_data['major'],
 			years_of_experience = self.cleaned_data['years_of_experience'],
+			work_experience = self.cleaned_data['work_experience'],
 			resume = self.cleaned_data.get('resume'),
 			preferred_location = self.cleaned_data['preferred_location'],
 			preferred_work_mode = self.cleaned_data['preferred_work_mode']

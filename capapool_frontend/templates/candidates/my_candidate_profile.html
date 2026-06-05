@@ -5,8 +5,6 @@
 
 <section class="profile-page">
     <div class="profile-card">
-
-        <!-- Candidate icon and main identity section -->
         <div class="profile-top">
             <div class="profile-avatar">
                 <img src="{% static 'images/icon-users.png' %}" alt="candidate icon">
@@ -14,39 +12,15 @@
 
             <h1>{{ candidate.full_name }}</h1>
             <p>{{ candidate.contact_email }}</p>
-
-            <span class="profile-badge">
-                {{ candidate.get_education_level_display }}
-            </span>
+            <span class="profile-badge">{{ candidate.get_education_level_display }}</span>
         </div>
 
-        <!-- Candidate details from the backend -->
         <div class="profile-details">
-            <div>
-                <strong>Phone</strong>
-                <p>{{ candidate.phone_number }}</p>
-            </div>
-
-            <div>
-                <strong>Major</strong>
-                <p>{{ candidate.major }}</p>
-            </div>
-
-            <div>
-                <strong>Experience</strong>
-                <p>{{ candidate.years_of_experience }} years</p>
-            </div>
-
-            <div>
-                <strong>Preferred Location</strong>
-                <p>{{ candidate.preferred_location }}</p>
-            </div>
-
-            <div>
-                <strong>Preferred Work Mode</strong>
-                <p>{{ candidate.preferred_work_mode }}</p>
-            </div>
-
+            <div><strong>Phone</strong><p>{{ candidate.phone_number }}</p></div>
+            <div><strong>Major</strong><p>{{ candidate.major }}</p></div>
+            <div><strong>Experience</strong><p>{{ candidate.years_of_experience }} years</p></div>
+            <div><strong>Preferred Location</strong><p>{{ candidate.preferred_location }}</p></div>
+            <div><strong>Preferred Work Mode</strong><p>{{ candidate.preferred_work_mode }}</p></div>
             <div>
                 <strong>Skills</strong>
                 <p>
@@ -67,15 +41,9 @@
         {% endif %}
 
         <div class="profile-actions">
-            <a href="{% url 'edit_my_candidate_profile' %}" class="btn primary-btn">
-                Edit my profile
-            </a>
-
-            <a href="{% url 'dashboard' %}" class="btn secondary-btn">
-                Back to dashboard
-            </a>
+            <a href="{% url 'edit_my_candidate_profile' %}" class="btn primary-btn">Edit my profile</a>
+            <a href="{% url 'dashboard' %}" class="btn secondary-btn">Back to dashboard</a>
         </div>
-
     </div>
 </section>
 

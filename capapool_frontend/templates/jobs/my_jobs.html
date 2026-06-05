@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="jobs-top-section">
+    <h1>My Job Postings</h1>
+    <p class="recommended-subtitle">Employer: <strong>{{ employer_profile.company_name }}</strong></p>
+</section>
+
+<section class="figma-jobs-layout">
+    <aside class="job-filter-box">
+        <h2>Employer Panel</h2>
+
+        <div class="filter-group">
+            <h3>Manage Jobs</h3>
+            <p>View and edit the job postings created by your company.</p>
+        </div>
+
+        <a href="{% url 'create_job' %}" class="create-job-link">Create a job posting</a>
+        <br><br>
+        <a href="{% url 'dashboard' %}" class="create-job-link">Back to dashboard</a>
+    </aside>
+
+    <section class="job-results-area">
+        <div class="job-results-header">
+            <p>Your job postings</p>
+            <p>Sort by: <strong>Newest</strong></p>
+        </div>
+
+        {% for job in jobs %}
+            <div class="figma-job-card">
+                <div class="company-initials">{{ employer_profile.company_name|slice:":2" }}</div>
+
+                <div class="job-main-info">
+                    <h2>{{ job.job_title }}</h2>
+                    <p class="company-name">{{ employer_profile.company_name }}</p>
+
+                    <div class="job-meta-row">
+                        <span>{{ job.job_location }}</span>
+                        <span>{{ job.get_work_mode_display }}</span>
+                        <span>{{ job.required_years_of_experience }} years exp</span>
+                    </div>
+
+                    <p class="job-description">{{ job.job_description }}</p>
+
+                    <p class="job-description">
+                        <strong>Skills:</strong>
+                        {% for skill in job.required_skills.all %}
+                            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            No skills listed.
+                        {% endfor %}
+                    </p>
+
+                    <div class="job-actions">
+                        <a href="{% url 'edit_job' job.id %}" class="btn secondary-btn">Edit Job</a>
+                        <a href="{% url 'recommended_candidates' job.id %}" class="btn primary-btn">Recommended Candidates</a>
+                    </div>
+                </div>
+
+                {% if job.is_active %}
+                    <span class="posted-badge">Active</span>
+                {% else %}
+                    <span class="inactive-badge">Inactive</span>
+                {% endif %}
+            </div>
+        {% empty %}
+            <div class="empty-message"><p>You have not created any job postings yet.</p></div>
+        {% endfor %}
+    </section>
+</section>
+
+{% endblock %}

@@ -5,33 +5,23 @@
 
 <section class="figma-form-page">
     <div class="figma-form-card">
-
-        <!-- Job edit icon -->
         <div class="form-icon-box dark-icon-box">
             <img src="{% static 'images/briefcase-2.png' %}" alt="job icon">
         </div>
 
         <h1>Edit Job Posting</h1>
+        <p class="form-subtitle">Updating details for <strong>{{ job.job_title }}</strong>.</p>
 
-        <p class="form-subtitle">
-            Updating details for <strong>{{ job.job_title }}</strong>.
-        </p>
-
-        <!-- Django handles saving the edited job in the backend -->
         <form method="post" class="simple-form">
             {% csrf_token %}
-
             {{ form.as_p }}
 
-            <button type="submit" class="figma-submit-btn">
-                Save Changes →
-            </button>
+            <button type="submit" class="figma-submit-btn">Save Changes →</button>
         </form>
 
         <div class="form-bottom-text">
-            <a href="{% url 'job_list' %}">Back to job list</a>
+            <a href="{% url 'my_jobs' %}">Back to my jobs</a>
         </div>
-
     </div>
 </section>
 

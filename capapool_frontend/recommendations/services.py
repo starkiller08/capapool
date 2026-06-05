@@ -26,6 +26,10 @@ def calculate_job_match_score(candidate, job):
 		score += experience_ratio * 20
 
 
+	if candidate.preferred_location and candidate.preferred_location.lower() == job.job_location.lower():
+		score += 10
+
+
 	if candidate.preferred_work_mode and candidate.preferred_work_mode.lower() == job.work_mode.lower():
 		score += 10
 
@@ -47,6 +51,10 @@ def get_top_10_jobs_for_candidate(candidate):
 
 	scored_jobs.sort(key=lambda item: item['score'], reverse=True)
 
+	if candidate.is_member:
+		return scored_jobs
+
+
 	return scored_jobs[:10]
 
 
@@ -67,6 +75,10 @@ def get_top_10_candidates_for_job(job):
 		})
 
 	scored_candidates.sort(key=lambda item: item['score'], reverse=True)
+
+	if job.employer.is_member:
+		return scored_candidates
+		
 
 	return scored_candidates[:10]
 

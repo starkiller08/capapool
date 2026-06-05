@@ -4,89 +4,51 @@
 
 <section class="jobs-top-section">
     <h1>Recommended Jobs</h1>
-
     {% if candidate %}
-        <p class="recommended-subtitle">
-            Showing job matches for <strong>{{ candidate.full_name }}</strong>.
-        </p>
+        <p class="recommended-subtitle">Showing job matches for <strong>{{ candidate.full_name }}</strong>.</p>
     {% else %}
-        <p class="recommended-subtitle">
-            No candidate profile found. Please create a candidate profile first.
-        </p>
+        <p class="recommended-subtitle">No candidate profile found. Please create a candidate profile first.</p>
     {% endif %}
 </section>
 
 {% if candidate %}
-    <section class="figma-jobs-layout">
+<section class="figma-jobs-layout">
+    <aside class="job-filter-box">
+        <h2>Match Summary</h2>
+        <div class="filter-group"><h3>Candidate</h3><p>{{ candidate.full_name }}</p></div>
+        <div class="filter-group"><h3>Results</h3><p>Top recommended jobs based on profile information.</p></div>
+        <a href="{% url 'job_list' %}" class="create-job-link">Back to all jobs</a>
+    </aside>
 
-        <!-- Small side panel to explain what this page is showing -->
-        <aside class="job-filter-box">
-            <h2>Match Summary</h2>
-
-            <div class="filter-group">
-                <h3>Candidate</h3>
-                <p>{{ candidate.full_name }}</p>
-            </div>
-
-            <div class="filter-group">
-                <h3>Results</h3>
-                <p>Top recommended jobs based on profile information.</p>
-            </div>
-
-            <a href="{% url 'job_list' %}" class="create-job-link">
-                Back to all jobs
-            </a>
-        </aside>
-
-        <section class="job-results-area">
-            <div class="job-results-header">
-                <p>Recommended job matches</p>
-                <p>Sort by: <strong>Match Score</strong></p>
-            </div>
-
-            {% for item in results %}
-                <!-- One recommended job result from the backend -->
-                <div class="figma-job-card">
-                    <div class="company-initials">
-                        {{ item.job.employer.company_name|slice:":2" }}
+    <section class="job-results-area">
+        <div class="job-results-header"><p>Recommended job matches</p><p>Sort by: <strong>Match Score</strong></p></div>
+        {% for item in results %}
+            <div class="figma-job-card">
+                <div class="company-initials">{{ item.job.employer.company_name|slice:":2" }}</div>
+                <div class="job-main-info">
+                    <h2>{{ item.job.job_title }}</h2>
+                    <p class="company-name">{{ item.job.employer.company_name }}</p>
+                    <div class="job-meta-row">
+                        <span>{{ item.job.job_location }}</span>
+                        <span>{{ item.job.get_work_mode_display }}</span>
+                        <span>{{ item.job.required_years_of_experience }} years exp</span>
                     </div>
-
-                    <div class="job-main-info">
-                        <h2>{{ item.job.job_title }}</h2>
-                        <p class="company-name">{{ item.job.employer.company_name }}</p>
-
-                        <div class="job-meta-row">
-                            <span>{{ item.job.job_location }}</span>
-                            <span>{{ item.job.get_work_mode_display }}</span>
-                            <span>{{ item.job.required_years_of_experience }} years exp</span>
-                        </div>
-
-                        <p class="job-description">
-                            {{ item.job.job_description }}
-                        </p>
-
-                        <p class="job-description">
-                            <strong>Skills:</strong>
-                            {% for skill in item.job.required_skills.all %}
-                                {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                                No skills listed.
-                            {% endfor %}
-                        </p>
-                    </div>
-
-                    <span class="match-score">
-                        Match: {{ item.score }}
-                    </span>
+                    <p class="job-description">{{ item.job.job_description }}</p>
+                    <p class="job-description"><strong>Skills:</strong>
+                        {% for skill in item.job.required_skills.all %}
+                            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            No skills listed.
+                        {% endfor %}
+                    </p>
                 </div>
-            {% empty %}
-                <div class="empty-message">
-                    <p>No recommended jobs found.</p>
-                </div>
-            {% endfor %}
-        </section>
-
+                <span class="match-score">Match: {{ item.score }}</span>
+            </div>
+        {% empty %}
+            <div class="empty-message"><p>No recommended jobs found.</p></div>
+        {% endfor %}
     </section>
+</section>
 {% endif %}
 
 {% endblock %}

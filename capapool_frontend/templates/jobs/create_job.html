@@ -5,8 +5,6 @@
 
 <section class="figma-form-page">
     <div class="figma-form-card">
-
-        <!-- Employer/job posting icon -->
         <div class="form-icon-box dark-icon-box">
             <img src="{% static 'images/briefcase-2.png' %}" alt="job icon">
         </div>
@@ -14,21 +12,16 @@
         <h1>Create Job Posting</h1>
         <p class="form-subtitle">Add a new role and start finding suitable candidates.</p>
 
-        <!-- Django still handles saving the job in the backend -->
         <form method="post" class="simple-form">
             {% csrf_token %}
-
             {{ form.as_p }}
 
-            <button type="submit" class="figma-submit-btn">
-                Create Job →
-            </button>
+            <button type="submit" class="figma-submit-btn">Create Job →</button>
         </form>
 
         <div class="form-bottom-text">
             <a href="{% url 'job_list' %}">Back to job list</a>
         </div>
-
     </div>
 </section>
 
